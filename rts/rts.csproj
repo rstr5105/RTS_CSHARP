@@ -43,9 +43,17 @@
   <ItemGroup>
     <Compile Include="rts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="World\Tile.cs" />
+    <Compile Include="World\TileType.cs" />
+    <Compile Include="World\World.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="core\" />
+    <Folder Include="graphicsEngine\" />
+    <Folder Include="Units\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
