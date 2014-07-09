@@ -18,21 +18,21 @@ namespace rts.World
 	private static  int SOUTHEAST = 7;
 	
 	
-	private static  int NUMthis.OFthis.STEPS = 5;
+	private static  int NUM_OF_STEPS = 5;
 	
 	private int stepsDone = 0;
-	private int sizethis.H;
-	private int sizethis.W;
+	private int Size_H;
+	private int Size_W;
 	private Tile[][] gWorld;
 	private static Random random = new Random();
 	
-	public World(int sizethis.H, int sizethis.W){
+	public World(int Size_H, int Size_W){
 		//ctor
 		//initialize size Variables.
-		this.setsizethis.H(sizethis.H);
-		this.setsizethis.W(sizethis.W);
+		this.setSize_H(Size_H);
+		this.setSize_W(Size_W);
 		initializeWorld(gWorld);
-		for(stepsDone = 0; stepsDone < NUMthis.OFthis.STEPS; stepsDone++){
+		for(stepsDone = 0; stepsDone < NUM_OF_STEPS; stepsDone++){
 			gWorld = doSimulationStep(gWorld);
 			
 		}
@@ -42,10 +42,10 @@ namespace rts.World
 	
 	public void initializeWorld(Tile[][] world){
 		//initialize a new World of Random Tiles.
-        world = new Tile[sizethis.H][];
-		for (int y = 0; y <sizethis.H; y++){
-			world[y] = new Tile[sizethis.W];
-            for(int x = 0; x < sizethis.W; x++){
+        world = new Tile[Size_H][];
+		for (int y = 0; y <Size_H; y++){
+			world[y] = new Tile[Size_W];
+            for(int x = 0; x < Size_W; x++){
 				//create a new tile.
 				Tile tile = new Tile();
 				world[y][x] = tile.setupTile();
@@ -57,11 +57,11 @@ namespace rts.World
 	private Tile[][] doSimulationStep(Tile[][] world){
         //create a new blank world, so we're not checking new data.
         //then loop over it, smoothing it out as we go.
-		Tile[][] newWorld = new Tile[sizethis.H][];
+		Tile[][] newWorld = new Tile[Size_H][];
 		int passComplete = NUMthis.OFthis.STEPS - (NUMthis.OFthis.STEPS - stepsDone);
-        for (int y = 0; y < sizethis.H; y++){
-            newWorld[y] = new Tile[sizethis.H];
-            for (int x = 0; x < sizethis.W; x++){
+        for (int y = 0; y < Size_H; y++){
+            newWorld[y] = new Tile[Size_H];
+            for (int x = 0; x < Size_W; x++){
             	newWorld[y][x] = new Tile();
                 /*
                  * fucking check for bounds, only once in this version of code.  Thank GOD!  (y really hate checking bounds.
@@ -156,34 +156,34 @@ namespace rts.World
 				
 			
 	/**
-	 * @return the sizethis.H
+	 * @return the Size_H
 	 */
-	public int getsizethis.H() {
-		return sizethis.H;
+	public int getSize_H() {
+		return Size_H;
 	}
 
 
 	/**
-	 * @param sizethis.H the sizethis.H to set
+	 * @param Size_H the Size_H to set
 	 */
-	public void setsizethis.H(int sizethis.H) {
-		this.sizethis.H = sizethis.H;
+	public void setSize_H(int Size_H) {
+		this.Size_H = Size_H;
 	}
 
 
 	/**
-	 * @return the sizethis.W
+	 * @return the Size_W
 	 */
-	public int getsizethis.W() {
-		return sizethis.W;
+	public int getSize_W() {
+		return Size_W;
 	}
 
 
 	/**
-	 * @param sizethis.W the sizethis.W to set
+	 * @param Size_W the Size_W to set
 	 */
-	public void setsizethis.W(int sizethis.W) {
-		this.sizethis.W = sizethis.W;
+	public void setSize_W(int Size_W) {
+		this.Size_W = Size_W;
 	}
 
 	/**
@@ -196,10 +196,10 @@ namespace rts.World
 	public void print(){
 		//For the Graphically Challenged, this will print the world to console.   
 		//Really Kinda outdated now that we have a 2D map going.  But, still here for future debugging/other purposes.
-		for(int y = 0; y < sizethis.H; y++){
+		for(int y = 0; y < Size_H; y++){
 			//create a string to hold each line of the map.
 			String mapString = "";
-			for(int x = 0; x < sizethis.W; x++){
+			for(int x = 0; x < Size_W; x++){
 				//add each tilechar to the map.
 				mapString += this.gWorld[y][x].getTileChar();
 			}

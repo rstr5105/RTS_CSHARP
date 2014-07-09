@@ -7,10 +7,36 @@ using System.Threading.Tasks;
 
 namespace rts.World
 {
-    struct TileType
+    public class Tile
     {
-        struct TileType
+        private TileType type;
+
+        private List<TileType> types = new List<TileType>{TileType.Water, 
+                                                          TileType.Sand, 
+                                                          TileType.Dirt, 
+                                                          TileType.Grass, 
+                                                          TileType.Pebbles, 
+                                                          TileType.Rock, 
+                                                          TileType.Tree};
+        
+
+        public TileType getTileType(){
+            return this.type;
+        }
+
+        public void setType(TileType t){
+            this.type = t;
+        }
+
+        public int getIndexOfType(TileType t){
+            return types.IndexOf(t);
+        }
+        
+    }      
+       
+        private struct TileType
         {
+
             public static readonly TileType Water = new TileType('~', false, 0.0, "Water", null, "water.png");
             public static readonly TileType Sand = new TileType('§', true, 0.75, "Sand", null, "sand.png");
             public static readonly TileType Dirt = new TileType('#', true, 1.0, "Dirt", null, "dirt.png");
@@ -23,10 +49,10 @@ namespace rts.World
             private bool passable;
             private double speedMod;
             private string type;
-            private ArrayList unitsInMe;
+            private Unit[] unitsInMe;
             private string sprite;
 
-            private TileType(char tile, bool passable, double speedMod, string type, Unit unitsInMe, string sprite)
+            private TileType(char tile, bool passable, double speedMod, string type, Unit[] unitsInMe, string sprite)
             {
                 this.tile = tile;
                 this.passable = passable;
@@ -34,6 +60,8 @@ namespace rts.World
                 this.type = type;
                 this.unitsInMe = unitsInMe;
                 this.sprite = sprite;
+
+
             }
             public char Tile { get { return this.tile; } }
             public bool Passable { get { return this.passable; } }
@@ -42,8 +70,12 @@ namespace rts.World
             public Unit[] UnitsInMe { get { return this.unitsInMe; } }
             public string Sprite { get { return this.sprite; } }
         }
+        
     }
+
 }
+
+    
 /**HERE for PORTING PURPOSES ONLY
 package game.world;
 

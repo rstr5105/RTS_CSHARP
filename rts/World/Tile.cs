@@ -9,12 +9,14 @@ using rts.World;
 namespace rts
 {
     public class Tile {
+      
 		//member variables
 
 	private TileType type;
-	private int numOfTypes = TileType.values().length;
+	private int numOfTypes = TileType.;
 	private static Random random = new Random();
 	
+
 	public Tile(){
 		//CTOR
 	}
@@ -28,7 +30,7 @@ namespace rts
 	public TileType getTypeByIndex(int i){
 		//The Cleverest Function that could.   When the Tile() constructor calls this from createTile(TileType.getTypeByIndex)
 		//It simply returns the values we need.  Genius!  To Think, ten minutes ago I was about to give up on the enum type.  
-			return TileType.values()[i];
+			return type;
 		}
 	
 	public int getNumOfTypes(){
@@ -65,21 +67,21 @@ namespace rts
 		/**
 		 * @return the speedMod.  This will tell units what percentage of their maximum speed they can move across this soil.
 		 */
-		return type.speedmod;
+		return type.SpeedMod;
 	}
 
 	public String getSType(){
 		/**
 		 * @return the SType
 		 */
-		return type.sType;
+		return type.Type;
 	}
 
 	public char getTileChar() {
 		/**
 		 * @return the tileChar
 		 */
-		return type.tileChar;
+		return type.Tile;
 	}
 	
 	
