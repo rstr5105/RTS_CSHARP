@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using rts.core;
+using rts.World;
+using rts.graphicsEngine;
 namespace rts
 {
-    class rts
+    class rts : GameCore
     {
         static int Main(string[] args)
         {

@@ -13,12 +13,13 @@ namespace rts
 		//member variables
 
 	private TileType type;
-	private int numOfTypes = TileType.;
+	private int numOfTypes;
 	private static Random random = new Random();
 	
 
 	public Tile(){
 		//CTOR
+        numOfTypes = type.getNumOfTypes();
 	}
 	
 	
@@ -41,12 +42,12 @@ namespace rts
 		/*
 		 * @Return passable
 		 */
-		return type.passable;
+		return type.Passable;
 	}
 
 	
 	public int getIndexOfType(){
-		return this.getType().ordinal();
+		//return this.getType().ordinal();
 	}
 	
 	/**
@@ -91,8 +92,7 @@ namespace rts
 		//This function basically just izes creating a tile, by grabbing the appropriate 
 		//information from TileType and returning a new tile.  
 		//thanks to everyone in ##Java on Freenode for their help.
-		TileType typeSelector = getTypeByIndex(random.nextInt
-													(TileType.values().length - 2) + 2);
+		TileType typeSelector = getTypeByIndex(random.(typeSelector.getNumOfTypes() - 2) + 2);
 		//here we'll create a tile, and then initialize all of it's variables based on our enum.  *PRETTY CLEVER!*
 		this.setType((typeSelector));
 		return this;
