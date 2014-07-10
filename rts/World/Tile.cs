@@ -27,7 +27,7 @@ namespace rts
 	
 	/*****************************
 	 * Getters and setters.  blah.  
-	 *****************************/
+	 *****************************
 	public TileType getTypeByIndex(int i){
 		//The Cleverest Function that could.   When the Tile() constructor calls this from createTile(TileType.getTypeByIndex)
 		//It simply returns the values we need.  Genius!  To Think, ten minutes ago I was about to give up on the enum type.  
@@ -41,25 +41,25 @@ namespace rts
 	public bool isPassable() {
 		/*
 		 * @Return passable
-		 */
+		 *
 		return type.Passable;
 	}
 
 	
-	public int getIndexOfType(){
+	//public int getIndexOfType(){
 		//return this.getType().ordinal();
 	}
 	
 	/**
 	 * @return the type
-	 */
-	public TileType getType() {
-		return type;
-	}
+	 *
+	//public TileType getType() {
+		//return type;
+	//}
 
 	/**
 	 * @param type the type to set
-	 */
+	 *
 	public void setType(TileType type) {
 		this.type = type;
 	}
@@ -67,21 +67,21 @@ namespace rts
 	public double getSpeedMod() {
 		/**
 		 * @return the speedMod.  This will tell units what percentage of their maximum speed they can move across this soil.
-		 */
+		 *
 		return type.SpeedMod;
 	}
 
 	public String getSType(){
 		/**
 		 * @return the SType
-		 */
+		 *
 		return type.Type;
 	}
 
 	public char getTileChar() {
 		/**
 		 * @return the tileChar
-		 */
+		 *
 		return type.Tile;
 	}
 	
@@ -103,7 +103,7 @@ namespace rts
 	 * @overloaded function
 	 * @param typeSelector
 	 * @return
-	 */
+	 *
     
     [Obsolete ("This Method is now Obsolete")]
 	public Tile setupTile(int typeSelector){
