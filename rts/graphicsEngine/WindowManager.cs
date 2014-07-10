@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace rts.graphicsEngine
 {
     class WindowManager{
-        private GraphicsDevice device;
+        /*private GraphicsDevice device;
 	
 	    //Creates the Window Manager
 	    public WindowManager(){
@@ -121,6 +121,6 @@ namespace rts.graphicsEngine
 		    else{
 			    return 0;
 		    }
-	    }
+	    }*/
     }
 }

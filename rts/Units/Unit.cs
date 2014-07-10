@@ -5,6 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace rts.Units {
-    class Unit {
+    public class Unit {
     }
 }

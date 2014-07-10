@@ -6,21 +6,32 @@ using System.Threading.Tasks;
 
 using rts.World;
 
-namespace rts
-{
+namespace rts {
     public class Tile {
-      
-		//member variables
 
-	private TileType type;
-	private int numOfTypes;
-	private static Random random = new Random();
-	
+        //member variables
 
-	public Tile(){
-		//CTOR
-        numOfTypes = type.getNumOfTypes();
-	}
+        private TileType type;
+        private static Random random = new Random();
+        private static Dictionary<string, TileType>tileDictionary = new TileDictionary().DetailedInfo;
+
+        public Tile(string tileType) {
+            this.type = tileDictionary[tileType];
+            System.Console.WriteLine("TileType: " + this.type.Name);
+        }
+
+        public Tile() {
+            //CTOR
+            string[] test = tileDictionary.Keys.ToArray();
+            int selector = random.Next(test.Length - 1);
+                returntest1(test, selector);
+           }
+        
+        public void returntest1(string[] test, int selector) {
+            System.Console.WriteLine(test[selector]);
+        }
+    }
+}
 	
 	
 		
@@ -127,3 +138,4 @@ namespace rts
 }
 //###End Tile###
 }
+    */

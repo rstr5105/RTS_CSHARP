@@ -10,7 +10,7 @@ namespace rts.core
 {
     abstract class GameCore
     {
-        private bool isRunning;
+        /*private bool isRunning;
 	    protected WindowManager wm;
 	
 	    public void stop(){
@@ -71,8 +71,9 @@ namespace rts.core
         /**
 	    * draws to the screen.  Sub-classes MUST OVERRIDE!
 	    * @param g
-	    */
+	    
 	    public abstract void draw(Graphics2D g);
+    */
     }
 }
    

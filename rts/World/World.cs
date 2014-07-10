@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace rts.World
-{
-    class World
-    {
+namespace rts.World {
+    class World {/*
         private static int NORTHWEST = 0;
         private static int NORTH = 1;
         private static int NORTHEAST = 2;
@@ -76,7 +74,7 @@ namespace rts.World
                      * ORACLE: Do us a favor, make a function for arrays called BoundsCheck() or some such, that does this for us,
                      * and build it into the array type.  It should return a boolean.  This will make everyone's lives easier.(Yes, y Am
                      * That lazy))
-                     */
+                     *
 
                     if ((y == 0
                         || x == 0
@@ -104,42 +102,42 @@ namespace rts.World
                          * Rule 3: generate water if there are more than 4 (water|dirt)-tiles around before last step
                          * Rule 4: If any two opposite surrounding tiles are water, flip tile to sand .
                          * Rule 5: otherwise flip to the greatest surrounding tile type.
-                         */
+                         *
 
 
                         //apply rule 1:
-                        if ((neighborTypes[TileType.Water] == 8)
-                                && (stepsDone == NUMthis.OFthis.STEPS) && newWorld[y][x].getType() != TileType.WATER)
+                        if ((neighborTypes[TileTypes.Water] == 8)
+                                && (stepsDone == NUMthis.OFthis.STEPS) && newWorld[y][x].getType() != TileTypes.WATER)
                         {
-                            newWorld[y][x].setupTile(TileType.WATER);
+                            newWorld[y][x].setupTile(TileTypes.WATER);
                             //DEBUG::System.out.println("All Neighbors Water! Flipping Tile: " + y + ":" + x +" To Water!\nOn Pass" + passComplete);
                         }
 
                         //apply rule 2:
-                        else if ((neighborTypes[TileType.GRASS.ordinal()] + neighborTypes[TileType.WATER.ordinal()] > 6)
+                        else if ((neighborTypes[TileTypes.GRASS.ordinal()] + neighborTypes[TileTypes.WATER.ordinal()] > 6)
                                 && (stepsDone < NUMthis.OFthis.STEPS - 1))
                         {
                             //DEBUG::System.out.println("Not Enough Dirt! Flipping Tile: " + y + ":" + x +" To Dirt!\nOn Pass" + passComplete);
-                            newWorld[y][x].setupTile(TileType.DIRT);
+                            newWorld[y][x].setupTile(TileTypes.DIRT);
 
                         }
 
 
                         //apply rule 3:
-                        else if ((neighborTypes[TileType.GRASS.ordinal()] + neighborTypes[TileType.DIRT.ordinal()] > 7)
+                        else if ((neighborTypes[TileTypes.GRASS.ordinal()] + neighborTypes[TileTypes.DIRT.ordinal()] > 7)
                                 && (stepsDone <= NUMthis.OFthis.STEPS - 2))
                         {
                             //DEBUG::System.out.println("Not Enough Internal Water! Flipping Tile: " + y + ":" + x +" To Water!\nOn Pass" + passComplete);
-                            newWorld[y][x].setupTile(TileType.WATER);
+                            newWorld[y][x].setupTile(TileTypes.WATER);
 
                         }
                         //apply rule 4:
-                        else if ((((neighbors[NORTH].getType() == TileType.WATER) ^ (neighbors[SOUTH].getType() == TileType.WATER))
-                                ^ ((neighbors[EAST].getType() == TileType.WATER) ^ (neighbors[WEST].getType() == TileType.WATER)))
+                        else if ((((neighbors[NORTH].getType() == TileTypes.WATER) ^ (neighbors[SOUTH].getType() == TileTypes.WATER))
+                                ^ ((neighbors[EAST].getType() == TileTypes.WATER) ^ (neighbors[WEST].getType() == TileTypes.WATER)))
                                 && stepsDone >= NUMthis.OFthis.STEPS - 1)
                         {
                             //DEBUG::System.out.println("Shore Detected! Flipping Tile: " + y + ":" + x +" To Sand!\nOn Pass" + passComplete);
-                            newWorld[y][x].setupTile(TileType.SAND);
+                            newWorld[y][x].setupTile(TileTypes.SAND);
                         }
 
                         //apply rule 5:
@@ -176,7 +174,7 @@ namespace rts.World
 
         /**
          * @return the Size_H
-         */
+         
         public int getSize_H()
         {
             return Size_H;
@@ -185,7 +183,7 @@ namespace rts.World
 
         /**
          * @param Size_H the Size_H to set
-         */
+         
         public void setSize_H(int Size_H)
         {
             this.Size_H = Size_H;
@@ -194,7 +192,7 @@ namespace rts.World
 
         /**
          * @return the Size_W
-         */
+         
         public int getSize_W()
         {
             return Size_W;
@@ -203,7 +201,7 @@ namespace rts.World
 
         /**
          * @param Size_W the Size_W to set
-         */
+         
         public void setSize_W(int Size_W)
         {
             this.Size_W = Size_W;
@@ -211,7 +209,7 @@ namespace rts.World
 
         /**
          return cell at position
-         */
+         
         public Tile getTile(int x, int y)
         {
             return gWorld[x][y];
@@ -232,6 +230,8 @@ namespace rts.World
 		    }
 	    }
 
+    }
+      */
     }
 }
 	

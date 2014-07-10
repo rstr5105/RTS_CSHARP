@@ -1,46 +1,72 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Collections;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 using rts.Units;
+using rts.helpers;
 
-namespace rts.World
-{
-    
-    public struct TileType{
-            public static readonly TileType Water = new TileType('~', false, 0.0, "Water", null, "water.png");
-            public static readonly TileType Sand = new TileType('§', true, 0.75, "Sand", null, "sand.png");
-            public static readonly TileType Dirt = new TileType('#', true, 1.0, "Dirt", null, "dirt.png");
-            public static readonly TileType Grass = new TileType('"', true, 1.0, "Grass", null, "grass.png");
-            public static readonly TileType Pebbles = new TileType('*', true, 1.0, "Pebbles", null, "pebbles.png");
-            public static readonly TileType Rock = new TileType('^', false, 0.0, "Rock", null, "rocks.png");
-            public static readonly TileType Tree = new TileType('†', true, 0.5, "Tree", null, "tree.png");
+namespace rts.World {
 
-            private char tile;
-            private bool passable;
-            private double speedMod;
-            private string type;
-            private Unit[] unitsInMe;
-            private string sprite;
-
-            private TileType(char tile, bool passable, double speedMod, string type, Unit[] unitsInMe, string sprite){
-                this.tile = tile;
-                this.passable = passable;
-                this.speedMod = speedMod;
-                this.type = type;
-                this.unitsInMe = unitsInMe;
-                this.sprite = sprite;
-            }
-            public char Tile { get { return this.tile; } }
-            public bool Passable { get { return this.passable; } }
-            public double SpeedMod { get { return this.speedMod; } }
-            public string Type { get { return this.type; } }
-            public Unit[] UnitsInMe { get { return this.unitsInMe; } }
-            public string Sprite { get { return this.sprite; } }
+    public class TileType {
+        public string Name;
+        public char Tile;
+        public bool Passable;
+        public double SpeedMod;
+        public string Image;
+        
+        public TileType(){ 
+        
+    }
 }
+
+    public class TileDictionary {
+        private int numOfTypes;
+        public int NumOfTypes{get{return numOfTypes;} }
+        private Dictionary<string, TileType> detailedInfo = new Dictionary<string, TileType>();
+        public TileDictionary() {
+                //Damn CSharp 
+            List<TileType> t = new List<TileType>(){
+                new TileType{
+                            Name = "water", 
+                            Tile = '~', 
+                            Passable = false,
+                            SpeedMod = 0.0,
+                            Image = "water.png"},
+                new TileType{
+                            Name = "sand", 
+                            Tile = '$', 
+                            Passable = true, 
+                            SpeedMod = 0.75, 
+                            Image = "sand.png"},
+                new TileType{
+                            Name = "dirt",
+                            Tile = '#',
+                            Passable = true,
+                            SpeedMod = .90,
+                            Image = "dirt.png"},
+                new TileType{
+                            Name = "grass",
+                            Tile = '"',
+                            Passable = true,
+                            SpeedMod = 1.0,
+                            Image = "grass.png"},
+                };
+                foreach(TileType type in t){
+                    string key = type.Name.ToUpper();
+                    detailedInfo.Add(key, type);
+                }
+                numOfTypes = detailedInfo.Count;
+            }    
+        
+        public Dictionary<string, TileType> DetailedInfo { get { return detailedInfo; } }
+
+    }
+}
+
 
 
 
