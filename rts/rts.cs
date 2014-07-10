@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 
 using rts.core;
-using rts.World;
+using rts.Worldgen;
 using rts.graphicsEngine;
 namespace rts
 {
@@ -14,9 +14,10 @@ namespace rts
         static int Main(string[] args)
         {
             System.Console.WriteLine("Hello World");
-            Tile tile = new Tile();
+            World GameWorld = new World(20, 20);
+            GameWorld.print();
             
-            Thread.Sleep(2000);
+            Thread.Sleep(22000);
             return 0;
         }
     }

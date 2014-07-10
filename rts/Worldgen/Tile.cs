@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using rts.World;
+using rts.Worldgen;
 
 namespace rts {
     public class Tile {
@@ -14,22 +14,22 @@ namespace rts {
         private TileType type;
         private static Random random = new Random();
         private static Dictionary<string, TileType>tileDictionary = new TileDictionary().DetailedInfo;
-
-        public Tile(string tileType) {
-            this.type = tileDictionary[tileType];
+        public TileType Type {get {return type; }set {type = value; } }
+        public Tile() {
+            //Default CTOR
+        }
+        
+        public Tile(TileType type) {
+            //Really only used during world init.
+            this.type = type;
             System.Console.WriteLine("TileType: " + this.type.Name);
         }
 
-        public Tile() {
-            //CTOR
-            string[] test = tileDictionary.Keys.ToArray();
-            int selector = random.Next(test.Length - 1);
-                returntest1(test, selector);
-           }
-        
-        public void returntest1(string[] test, int selector) {
-            System.Console.WriteLine(test[selector]);
+        public void setupTile(TileType type) {
+            this.type = type;
         }
+        
+        
     }
 }
 	

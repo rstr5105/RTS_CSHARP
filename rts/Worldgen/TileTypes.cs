@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 using rts.Units;
 using rts.helpers;
 
-namespace rts.World {
+namespace rts.Worldgen {
 
     public class TileType {
         public string Name;

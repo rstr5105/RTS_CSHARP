@@ -65,9 +65,9 @@
     <Compile Include="rts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Units\Unit.cs" />
-    <Compile Include="World\Tile.cs" />
-    <Compile Include="World\TileTypes.cs" />
-    <Compile Include="World\World.cs" />
+    <Compile Include="Worldgen\Tile.cs" />
+    <Compile Include="Worldgen\TileTypes.cs" />
+    <Compile Include="Worldgen\World.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
