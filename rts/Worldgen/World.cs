@@ -16,25 +16,33 @@ namespace rts.Worldgen {
         private static int SOUTHEAST = 7;
 
 
-        private static int NUM_OF_STEPS = 5;
+        private static int NUM_OF_STEPS = 0;
 
         private static Random random = new Random();
         
         //Get our list of Tile Types.
         private static TileDictionary tDict = new TileDictionary();
-        private static Dictionary<string, TileType> tileTypes = tDict.DetailedInfo;
-        //so we can use a random key.
-        private static string[] keys = tileTypes.Keys.ToArray();
+        
 
+        private Dictionary<int, TileType> td;
         
 
         private int stepsDone = 0;
         private int Size_H;
         private int Size_W;
         private Tile[][] gWorld;
-        
         public World(int Size_H, int Size_W)
         {
+
+            tDict.add(0, '~', false, 0.0f, "water.png");
+            tDict.add(1, '$', true, .75f, "sand.png");
+            tDict.add(2, '#', true, .90f, "dirt.png");
+            tDict.add(3, '"', true, 1.0f, "grass.png");
+            tDict.add(4, '^', false, .85f, "rocks.png");
+            tDict.add(5, '%', true, .80f, "pebbles.png");
+            tDict.add(6, '!', true, .65f, "trees.png");
+
+            td = tDict.DetailedInfo;
             //ctor
             //initialize size Variables.
             this.Size_H = Size_H;
@@ -60,8 +68,10 @@ namespace rts.Worldgen {
                 for (int x = 0; x < Size_W; x++)
                 {
                     //create a new tile, and initialize it to Water.
-                   
-                    world[y][x] = new Tile(tileTypes["WATER"]);
+
+                    world[y][x] = new Tile();
+                    int rand = random.Next((td.Count - 2) + 2);
+                    world[y][x].setupTile(td[rand]);
 
                 }
             }
@@ -89,23 +99,22 @@ namespace rts.Worldgen {
                         || x == 0
                         || y + 1 >= world.Length
                         || x + 1 >= world[y].Length)){
-                        newWorld[y][x].setupTile(tileTypes["WATER"]);
+                        newWorld[y][x].setupTile(td[0]);
                     }
 
                     else{
                         //Count Our Neighbors, so we can apply some rules.
                         Tile[] neighbors = getNeighbors(world, y, x);
+                        int[] neighborTypes = new int[td.Count];
 
                         //store our neighborTypes as Integers so we can sort them..
-                        Dictionary<TileType, int>neighborTypes = new Dictionary<TileType, int>();
-                        foreach (KeyValuePair<string, TileType> kvp in tileTypes) {
-                            neighborTypes.Add(kvp.Value, 0);
-                        }
+                       
 
+                        /*
+                         * Sort Tiles out by id
+                         */ 
                         for (int index = 0; index < neighbors.Length; index++){
-                            System.Console.WriteLine(neighbors[index].Type.Name);
-                            neighborTypes[neighbors[index].Type] += 1;
-                            
+                            neighborTypes[neighbors[index].TT.id]++; 
                     }
 
                         /*Start applying Rules to Tiles.
@@ -118,62 +127,62 @@ namespace rts.Worldgen {
 
 
                         //apply rule 1:
-                        if ((neighborTypes[tileTypes["WATER"]] ==  8)
-                                && (stepsDone == NUM_OF_STEPS) && newWorld[y][x].Type != tileTypes["WATER"])
+                        if ((neighborTypes[0] ==  8)
+                                && (stepsDone == NUM_OF_STEPS) && newWorld[y][x].TT != td[0])
                         {
-                            newWorld[y][x].setupTile(tileTypes["WATER"]);
-                            //DEBUG::System.out.println("All Neighbors Water! Flipping Tile: " + y + ":" + x +" To Water!\nOn Pass" + passComplete);
+                            newWorld[y][x].setupTile(td[0]);
+                            ////System.Console.WriteLine.WriteLine("All Neighbors Water! Flipping Tile: " + y + ":" + x +" To Water!\nOn Pass" + passComplete);
                         }
 
                         //apply rule 2:
-                        else if ((neighborTypes[tileTypes["GRASS"]] + neighborTypes[tileTypes["WATER"]] > 6)
+                        else if ((neighborTypes[1] + neighborTypes[0] > 6)
                                 && (stepsDone < NUM_OF_STEPS - 1))
                         {
-                            //DEBUG::System.out.println("Not Enough Dirt! Flipping Tile: " + y + ":" + x +" To Dirt!\nOn Pass" + passComplete);
-                            newWorld[y][x].setupTile(tileTypes["DIRT"]);
+                            //System.Console.WriteLine.WriteLine("Not Enough Dirt! Flipping Tile: " + y + ":" + x +" To Dirt!\nOn Pass" + passComplete);
+                            newWorld[y][x].setupTile(td[2]);
                             
                         }
 
 
                         //apply rule 3:
-                        else if ((neighborTypes[tileTypes["GRASS"]] + neighborTypes[tileTypes["DIRT"]] > 7)
+                        else if ((neighborTypes[3] + neighborTypes[2] > 7)
                                 && (stepsDone <= NUM_OF_STEPS - 2))
                         {
-                            //DEBUG::System.out.println("Not Enough Internal Water! Flipping Tile: " + y + ":" + x +" To Water!\nOn Pass" + passComplete);
-                            newWorld[y][x].setupTile(tileTypes["WATER"]);
+                            //System.Console.WriteLine.WriteLine("Not Enough Internal Water! Flipping Tile: " + y + ":" + x +" To Water!\nOn Pass" + passComplete);
+                            newWorld[y][x].setupTile(td[0]);
 
                         }
                         //apply rule 4:
-                        else if ((((neighbors[NORTH].Equals(tileTypes["WATER"]) ^ (neighbors[SOUTH].Equals(tileTypes["WATER"])))
-                                ^ ((neighbors[EAST].Equals(tileTypes["WATER"]) ^ (neighbors[WEST].Equals(tileTypes["WATER"]))))
-                                && stepsDone >= NUM_OF_STEPS - 1))){
-                            //DEBUG::System.out.println("Shore Detected! Flipping Tile: " + y + ":" + x +" To Sand!\nOn Pass" + passComplete);
-                            newWorld[y][x].setupTile(tileTypes["SAND"]);
+                        else if ((((neighbors[NORTH].TT.id == td[0].id) ^ (neighbors[SOUTH].TT.id == td[0].id))
+                                ^ ((neighbors[EAST].TT.id == td[0].id) ^ (neighbors[WEST].TT.id == td[0].id)))
+                                && stepsDone >= NUM_OF_STEPS - 1){
+                            //System.Console.WriteLine.WriteLine("Shore Detected! Flipping Tile: " + y + ":" + x +" To Sand!\nOn Pass" + passComplete);
+                            newWorld[y][x].setupTile(td[0]);
                         }
 
                         //apply rule 5:
                         else
                         {
-
-                            
-
                             int greatest = 0;
-                            TileType t = tileTypes["WATER"];
-                            foreach (KeyValuePair<TileType, int> kvp in neighborTypes) {
-                                if (greatest < kvp.Value) {
-                                    greatest = kvp.Value;
-                                    t = kvp.Key;
+                            
+                            for(int index = 0; index < neighborTypes.Length; index++){
+                                if (greatest < neighborTypes[index]) {
+                                    greatest = neighborTypes[index];
                                 }
                                 
                             }
-                            newWorld[y][x].setupTile(t);
-                            }
+                            int mostCommon = Array.IndexOf(neighborTypes, greatest); 
+                            newWorld[y][x].setupTile(td[mostCommon]);
+                                   
+                                
                         }
                     }
                 }
+            }
             return newWorld;
         }
-            
+
+       
         
         
         private Tile[] getNeighbors(Tile[][] world, int y, int x){
@@ -192,7 +201,7 @@ namespace rts.Worldgen {
 			String mapString = "";
 			for(int x = 0; x < Size_W; x++){
 				//add each tilechar to the map.
-				mapString += this.gWorld[y][x].Type.Tile;
+				mapString += this.gWorld[y][x].TT.Tile;
 			}
 			//print each line.  Lather, Rinse, Repeat until done.
 			System.Console.WriteLine(mapString);

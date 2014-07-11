@@ -4,68 +4,52 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+
 
 using rts.Units;
-using rts.helpers;
 
 namespace rts.Worldgen {
 
+
+
     public class TileType {
-        public string Name;
+        public int id;
         public char Tile;
         public bool Passable;
         public double SpeedMod;
         public string Image;
-        
-        public TileType(){ 
-        
-    }
-}
 
+        public TileType() {
+
+        }
+    }
+    
+    
     public class TileDictionary {
-        private int numOfTypes;
-        public int NumOfTypes{get{return numOfTypes;} }
-        private Dictionary<string, TileType> detailedInfo = new Dictionary<string, TileType>();
-        public TileDictionary() {
-                //Damn CSharp 
-            List<TileType> t = new List<TileType>(){
-                new TileType{
-                            Name = "water", 
-                            Tile = '~', 
-                            Passable = false,
-                            SpeedMod = 0.0,
-                            Image = "water.png"},
-                new TileType{
-                            Name = "sand", 
-                            Tile = '$', 
-                            Passable = true, 
-                            SpeedMod = 0.75, 
-                            Image = "sand.png"},
-                new TileType{
-                            Name = "dirt",
-                            Tile = '#',
-                            Passable = true,
-                            SpeedMod = .90,
-                            Image = "dirt.png"},
-                new TileType{
-                            Name = "grass",
-                            Tile = '"',
-                            Passable = true,
-                            SpeedMod = 1.0,
-                            Image = "grass.png"},
-                };
-                foreach(TileType type in t){
-                    string key = type.Name.ToUpper();
-                    detailedInfo.Add(key, type);
-                }
-                numOfTypes = detailedInfo.Count;
-            }    
+        public enum tileID { WATER = 0, SAND, DIRT, GRASS, PEBBLES, ROCKS, TREES };
+    
         
-        public Dictionary<string, TileType> DetailedInfo { get { return detailedInfo; } }
+        public TileDictionary() { }
+        private int numOfTypes;
+        public int NumOfTypes { get { return numOfTypes; } set { numOfTypes = value; } }
+        private Dictionary<int, TileType> detailedInfo = new Dictionary<int, TileType>();
+        private List<TileType> t = new List<TileType>();
+        public List<TileType> T { get { return t; } set { t = value; } }
+        public Dictionary<int, TileType> DetailedInfo = new Dictionary<int, TileType>();
+        
 
+        public void add(int b, char c, bool bo, float f, string s) {
+            TileType TT = new TileType { id = b, Tile = c, Passable = bo, SpeedMod = f, Image = s };
+            if(!DetailedInfo.ContainsKey(TT.id)){
+                DetailedInfo.Add(TT.id, TT);
+            }
+            NumOfTypes = DetailedInfo.Count;
+                
+        }
     }
 }
+
+    
 
 
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 using rts.Worldgen;
 
@@ -11,22 +11,16 @@ namespace rts {
 
         //member variables
 
-        private TileType type;
+        private TileType tt;
+        public TileType TT { get { return tt;}set{tt = value;} }
         private static Random random = new Random();
-        private static Dictionary<string, TileType>tileDictionary = new TileDictionary().DetailedInfo;
-        public TileType Type {get {return type; }set {type = value; } }
         public Tile() {
             //Default CTOR
+            
         }
         
-        public Tile(TileType type) {
-            //Really only used during world init.
-            this.type = type;
-            System.Console.WriteLine("TileType: " + this.type.Name);
-        }
-
-        public void setupTile(TileType type) {
-            this.type = type;
+        public void setupTile(TileType tt) {
+            TT = tt;
         }
         
         

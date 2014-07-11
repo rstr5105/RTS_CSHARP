@@ -13,8 +13,7 @@ namespace rts
     {
         static int Main(string[] args)
         {
-            System.Console.WriteLine("Hello World");
-            World GameWorld = new World(20, 20);
+            World GameWorld = new World(80,80);
             GameWorld.print();
             
             Thread.Sleep(22000);
