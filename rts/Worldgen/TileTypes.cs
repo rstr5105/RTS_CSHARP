@@ -25,11 +25,11 @@ namespace rts.Worldgen {
     }
     
     
-    public class TileDictionary {
+    public class TileTypes {
         public enum tileID { WATER = 0, SAND, DIRT, GRASS, PEBBLES, ROCKS, TREES };
     
         
-        public TileDictionary() { }
+        public TileTypes() { }
         private int numOfTypes;
         public int NumOfTypes { get { return numOfTypes; } set { numOfTypes = value; } }
         private Dictionary<int, TileType> detailedInfo = new Dictionary<int, TileType>();
