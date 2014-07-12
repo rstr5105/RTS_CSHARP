@@ -11,7 +11,7 @@ namespace rts.Worldgen {
 
 
 		//enumerate our Tile Ids
-		public static enum tileType {
+		public enum tileType {
 			WATER,
 			SAND,
 			DIRT,
@@ -86,7 +86,7 @@ namespace rts.Worldgen {
 			int passComplete = NUM_OF_STEPS - ( NUM_OF_STEPS - stepsDone );
 			for ( int y = 0; y < Size_H; y++ ) {
 				for ( int x = 0; x < Size_W; x++ ) {
-					if ( !Helpers.isBounds ( y, x, world ) ) {
+					if ( Helpers.isBounds ( y, x, world ) ) {
 						newWorld[ y ][ x ].setupTile ( TileDictionary[ ( int )tileType.WATER ] );
 					}
 					else {
@@ -119,21 +119,10 @@ namespace rts.Worldgen {
 			return newWorld;
 		}
 
-
-		private bool checkForBounds( Tile[ ][ ] world, int y, int x ) {
-			if ( y == 0
-			|| x == 0
-			|| y + 1 >= world.Length
-			|| x + 1 >= world[ y ].Length ) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
 		private Tile[ ] getNeighbors( Tile[ ][ ] world, int y, int x ) {
 			//Create a Tile Arrax to store all 8 of our neighbors in.  This makes things so much easier than what I was doing before.
 			//Check for bounds:
+			var b = Helpers.isBounds(y, x, world);
 			if ( !Helpers.isBounds ( y, x, world ) ) {
 				Tile[ ] neighbors = {world[y - 1][x - 1], world[y - 1][x],	world[y - 1][x + 1], 
 								world[y][x -1],		 			world[y][x+1], 
@@ -200,7 +189,7 @@ namespace rts.Worldgen {
 			 * on the interior of the map change tile t to dirt.
 			 */
 			if ( ( neighborTypes[ (int)tileType.GRASS ] + neighborTypes[ (int)tileType.WATER ] > 6 )
-				&& ( stepsDone < NUM_OF_STEPS - 1 )  {
+				&& ( stepsDone < NUM_OF_STEPS - 1 ))  {
 				newTile.setupTile ( TileDictionary[ (int)tileType.DIRT ] );
 			}
 			return newTile;
@@ -229,7 +218,7 @@ namespace rts.Worldgen {
 			bool shore = ( ( ( neighbors[ (int)directions.NORTH ].ID == (int)tileType.WATER ) ^ neighbors[ (int)directions.SOUTH ].ID == (int)tileType.WATER ) ^ ( neighbors[ (int)directions.WEST ].ID == (int)tileType.WATER ) ^ ( neighbors[ (int)directions.EAST ].ID == (int)tileType.WATER ) );
 			System.Console.WriteLine ( shore );
 			if ( shore ) {
-				newTile.setupTile ( TileDictionary[ SAND ] );
+				newTile.setupTile ( TileDictionary[ (int)tileType.SAND ] );
 			}
 			return newTile;
 		}

@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace rts.helpers {
 	class Helpers {
-		public static bool isBounds( int y, int x, Object[ ][ ] o ) {
-			if( y == 0
+		public static bool isBounds( int y, int x, Object[ ][ ] array ) {
+			
+			if(	 y == 0
 				|| x == 0
-				|| y + 1 >= o.Length
-				|| x + 1 >= o[ y ].Length ) {
+				|| y + 1 >= array.Length
+				|| x + 1 >= array[ y ].Length ) {
 					return true;
 			}
-			else {
-				return false;
-			}
+			return false;
 		}
 	}
 }
