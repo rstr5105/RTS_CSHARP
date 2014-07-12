@@ -1,18 +1,66 @@
 ﻿using System;
+using System.IO;
 using System.Drawing;
 using System.Threading.Tasks;
+
 
 using SDL2;
 
 namespace rts.graphicsEngine {
 	public class WindowManager {
 		public bool Quit { get; private set; }
-		
-		indow, renderer;
 
-		public WindowManager(int w, int h) : this(new Size(w, h)) {
-			System.Drawing.Size size = new System.Drawing.Size;
+		Size size;
+		IntPtr context, window, renderer;
 
+		public WindowManager(int w, int h) : this(new Size(w, h)) {}
+		public WindowManager(Size windowSize){
+			size = windowSize;
+
+			if (!File.Exists("SDL2-CS.dll.config")){
+				Console.WriteLine("SDL2-CS CONFIG NOT FOUND, ABORTING!");
+
+
+				SDL.SDL_Init ( SDL.SDL_INIT_VIDEO );
+				SDL.SDL_GL_SetAttribute ( SDL.SDL_GLattr.SDL_GL_DOUBLEBUFFER, 1 );
+				SDL.SDL_GL_SetAttribute ( SDL.SDL_GLattr.SDL_GL_RED_SIZE, 8 );
+				SDL.SDL_GL_SetAttribute ( SDL.SDL_GLattr.SDL_GL_GREEN_SIZE, 8 );
+				SDL.SDL_GL_SetAttribute ( SDL.SDL_GLattr.SDL_GL_BLUE_SIZE, 8 );
+				SDL.SDL_GL_SetAttribute ( SDL.SDL_GLattr.SDL_GL_ALPHA_SIZE, 0 );
+
+				window = SDL.SDL_CreateWindow
+					(
+						"SDL2 Test Window",
+						SDL.SDL_WINDOWPOS_CENTERED, SDL.SDL_WINDOWPOS_CENTERED,
+						size.Width, size.Height,
+						SDL.SDL_WindowFlags.SDL_WINDOW_SHOWN
+					);
+
+				renderer = SDL.SDL_CreateRenderer ( window, -1, ( uint )SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED );
+
+				SDL.SDL_ShowCursor ( 1 );
+				context = SDL.SDL_GL_CreateContext ( window );
+				SDL.SDL_GL_MakeCurrent ( window, context );
+			}
+
+			
+		}
+
+		public bool initSDL() {
+			bool success = true;
+			if (SDL.SDL_Init(SDL.SDL_INIT_VIDEO )< 0 ) {
+				success = false;
+			}
+			else{
+				SDL.SDL_GL_SetAttribute(SDL.SDL_GLattr.SDL_GL_DOUBLEBUFFER, 1);
+				SDL.SDL_GL_SetAttribute(SDL.SDL_GLattr.SDL_GL_RED_SIZE, 8);
+				SDL.SDL_GL_SetAttribute(SDL.SDL_GLattr.SDL_GL_GREEN_SIZE, 8);
+				SDL.SDL_GL_SetAttribute(SDL.SDL_GLattr.SDL_GL_BLUE_SIZE, 8);
+				SDL.SDL_GL_SetAttribute(SDL.SDL_GLattr.SDL_GL_ALPHA_SIZE, 0);
+			}
+			return success;
+		}
+			
 			/*/
 		    //Returns Current Fullscreen Window
 		    public Window getFullScreenWindow(){
@@ -117,4 +165,3 @@ namespace rts.graphicsEngine {
 		    }*/
 		}
 	}
-}

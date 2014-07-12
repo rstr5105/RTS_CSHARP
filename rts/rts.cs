@@ -12,14 +12,19 @@ namespace rts
 {
     class rts : GameCore
     {
+	    static WindowManager wm;
         static int Main(string[] args)
-        {    
+        {
+		   wm = new WindowManager ( 800,600 );
+
+		   while ( !wm.Quit ) {
+
+		   }
             const int SIZE_H = 30;
             const int SIZE_W = 30;
             Stopwatch t = new Stopwatch();
             t.Start();
-            
-            World GameWorld = new World(SIZE_H, SIZE_W);
+		  World GameWorld = new World(SIZE_H, SIZE_W);
             t.Stop();
             long l = t.ElapsedMilliseconds;
             t.Reset();
