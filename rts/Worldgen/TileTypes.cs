@@ -12,49 +12,79 @@ namespace rts.Worldgen {
 
 
 
-    public class TileType {
-        public int id;
-        public char Tile;
-        public bool Passable;
-        public double SpeedMod;
-        public string Image;
+	public struct TileType {
+		public int ID;
+		public char Tile;
+		public bool Passable;
+		public double SpeedMod;
+		public string Image;
 
-        public TileType() {
+		public TileType(int id, char tile, bool passable, double speedMod, string image) {
+			ID = id;
+			Tile = tile;
+			Passable = passable;
+			SpeedMod = speedMod;
+			Image = image;
 
-        }
-    }
-    
-    
-    public class TileTypes {
-        public enum tileID { WATER = 0, SAND, DIRT, GRASS, PEBBLES, ROCKS, TREES };
-    
-        
-        public TileTypes() { }
-        private int numOfTypes;
-        public int NumOfTypes { get { return numOfTypes; } set { numOfTypes = value; } }
-        private Dictionary<int, TileType> detailedInfo = new Dictionary<int, TileType>();
-        private List<TileType> t = new List<TileType>();
-        public List<TileType> T { get { return t; } set { t = value; } }
-        public Dictionary<int, TileType> DetailedInfo = new Dictionary<int, TileType>();
-        
+		}
+	}
 
-        public void add(int b, char c, bool bo, float f, string s) {
-            TileType TT = new TileType { id = b, Tile = c, Passable = bo, SpeedMod = f, Image = s };
-            if(!DetailedInfo.ContainsKey(TT.id)){
-                DetailedInfo.Add(TT.id, TT);
-            }
-            NumOfTypes = DetailedInfo.Count;
-                
-        }
-    }
+	public struct UnitType {
+		public int ID;
+		public char Tile;
+		public bool Alive;
+		public double Speed;
+		public String Image;
+
+	}
+
+	public class TileTypes {
+
+
+		const int WATER = 0;
+		const int SAND = 1;
+		const int DIRT = 2;
+		const int GRASS = 3;
+		const int PEBBLES = 4;
+		const int ROCKS = 5;
+		const int TREES = 6;
+
+		private int numOfTypes;
+		public int NumOfTypes { get { return numOfTypes; } set { numOfTypes = value; } }
+		private Dictionary<int, TileType> detailedInfo = new Dictionary<int, TileType> ( );
+		public Dictionary<int, TileType> DetailedInfo{ get { return detailedInfo; }}
+		private List<Object> t = new List<Object> ( );
+
+		public TileTypes() {
+
+
+
+			add ( WATER, '~', false, 0.0f, "water.png" );
+			add ( SAND, '$', true, .75f, "sand.png" );
+			add ( DIRT, '#', true, .90f, "dirt.png" );
+			add ( GRASS, '"', true, 1.0f, "grass.png" );
+			add ( ROCKS, '^', false, .85f, "rocks.png" );
+			add ( PEBBLES, '%', true, .80f, "pebbles.png" );
+			add ( TREES, '!', true, .65f, "trees.png" );
+		}
+		
+	public void add( int b, char c, bool bo, float f, string s ) {
+			TileType TT = new TileType(b, c,  bo, f, s );
+			if ( !DetailedInfo.ContainsKey ( TT.ID ) ) {
+				DetailedInfo.Add ( TT.ID, TT );
+			}
+			NumOfTypes = DetailedInfo.Count;
+
+		}
+	}
 }
 
-    
 
 
 
 
-    
+
+
 /**HERE for PORTING PURPOSES ONLY
 package game.world;
 

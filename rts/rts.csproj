@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="core\GameCore.cs" />
     <Compile Include="graphicsEngine\WindowManager.cs" />
+    <Compile Include="helpers\Helpers.cs" />
     <Compile Include="helpers\Ini.cs" />
     <Compile Include="rts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
