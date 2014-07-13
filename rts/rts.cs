@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 
 using rts.core;
 using rts.Worldgen;
 using rts.graphicsEngine;
+
 namespace rts
 {
     class rts : GameCore
@@ -15,10 +15,11 @@ namespace rts
 	    static WindowManager wm;
         static int Main(string[] args)
         {
-		   wm = new WindowManager ( 800,600 );
+		   bool quit = false;
+		   wm = new WindowManager ( );
 
-		   while ( !wm.Quit ) {
-
+		   while ( !quit ) {
+			   wm.draw ( );
 		   }
             const int SIZE_H = 30;
             const int SIZE_W = 30;
